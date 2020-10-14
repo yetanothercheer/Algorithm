@@ -31,6 +31,9 @@ end
 a = P "a"
 b = P "b"
 c = P "c"
-assert_equal 1, shortest_path([a, b, c], [V(a, c), V(a, b), V(b, c)], a, c), "Should be 1"
-assert_equal 2, shortest_path([a, b, c], [V(a, b), V(b, c)], a, c), "Should be 2"
-assert_equal 1, shortest_path([a, b, c], [V(a, c)], a, c), "Should be 2"
+d = P "d"
+assert_equal 1, shortest_path([a, b, c], [V(a, c), V(a, b), V(b, c)], a, c)
+assert_equal 1, shortest_path([a, b, c], [V(a, c)], a, c)
+assert_equal 1, shortest_path([a, b, c], [V(a, c)], a, c)
+assert_equal 3, shortest_path([a, b, c, d], [V(a, b), V(b, c), V(c, d)], a, d)
+assert_equal 1, shortest_path([a, b, c, d], [V(a, d), V(a, b), V(b, c), V(c, d)], a, d)
