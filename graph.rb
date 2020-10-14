@@ -25,7 +25,7 @@ def shortest_path ps, vs, a, b
     if v.a == b then connected << v.b end
     if v.b == b then connected << v.a end
   end
-  connected.map { |p| pss = ps.dup; pss.delete(b); shortest_path pss, vs.dup.filter { |v| v.a != b && v.b != b }, a, p  }.min + 1
+  connected.map { |p| shortest_path vs.filter { |v| v != b }, vs.filter { |v| v.a != b && v.b != b }, a, p  }.min + 1
 end
 
 a = P "a"
