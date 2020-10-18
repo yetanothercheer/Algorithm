@@ -1,12 +1,11 @@
 def sort arr
-  count = arr.map { 0 }
+  count = [0] * arr.length
   arr.map { |elem| count[elem]+=1 }
-  sorted = []
-  count.each_with_index.map { |elem, index| elem.times { sorted << index }}
-  sorted
+  # Very inefficient but satisfiable
+  count.each_with_index.map { |elem, index| [index] * elem }.reduce { |r, a| r + a }
 end
 
-a = (0...1000000).map { (rand*100).floor }
+a = (0...100).map { (rand*100).floor }
 t1 = Time.now
 sort a
 t2 = Time.now
