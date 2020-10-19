@@ -3,6 +3,8 @@ require 'curses'
 require 'matrix'
 include Curses
 
+# Message: install ncursesw and reinstall curses gem if unicode is not supported.
+
 init_screen
 curs_set(0)  # Invisible cursor
 noecho
