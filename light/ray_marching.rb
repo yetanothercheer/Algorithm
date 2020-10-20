@@ -19,6 +19,19 @@ begin
   clr = lambda { |x, y| setpos(y, x); addstr(" ") }
 
   ball = lambda { |p, c, s| (p-c).magnitude - s  }
+  world = lambda { |p| ball[Vector[0, 0, 2], p, 1] }
+
+  # Normal is the direction changing fastest
+  dx = Vector[0.001, 0, 0]
+  dy = Vector[0, 0.001, 0]
+  dz = Vector[0, 0, 0.001]
+  calculate_normal = lambda { |f, p|
+    Vector[
+      f[p+dx]-f[p-dx],
+      f[p+dy]-f[p-dy],
+      f[p+dz]-f[p-dz]
+    ].normalize
+  }
 
   last = Time.now
   fps_count = 0
@@ -32,11 +45,11 @@ begin
       dist = 0.0
       10.times do
         current = ro + rd * dist
-        close = ball[Vector[0, 0, 2], current, 1]
+        close = world[current]
         if close < 0.1 then
           # return 8 - 8*((ro+rd*(dist+close))[2] - 1)
           point = ro + rd*(dist+close)
-          normal = (point-Vector[0,0,2]).normalize
+          normal = calculate_normal[world, point]
           light_dir = (light - point).normalize
           v = light_dir.dot(normal)
           return ([v, 0].max) * 7
